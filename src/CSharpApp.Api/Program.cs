@@ -7,6 +7,13 @@ builder.Configuration.AddEnvironmentVariables();
 // Add services to the container.
 builder.Services.AddDefaultConfiguration();
 
+//Add named http client to the container
+builder.Services.AddHttpClient("client", client =>
+{
+    var baseUrl = builder.Configuration["BaseUrl"];
+    client.BaseAddress = new Uri(baseUrl);
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
