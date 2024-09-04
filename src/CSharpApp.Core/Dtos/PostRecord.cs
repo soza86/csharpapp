@@ -4,6 +4,6 @@
     [property: JsonProperty("userId")] int UserId,
     [property: JsonProperty("id")] int Id,
     [property: JsonProperty("title")] string Title,
-    [property: JsonProperty("body")] bool Body
+    [property: JsonProperty("body")] string Body
 );
 }
