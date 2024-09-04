@@ -15,6 +15,11 @@ builder.Services.AddHttpClient<ApiClientService<TodoRecord>>(client =>
     var baseUrl = builder.Configuration["BaseUrl"];
     client.BaseAddress = new Uri(baseUrl);
 });
+builder.Services.AddHttpClient<ApiClientService<PostRecord>>(client =>
+{
+    var baseUrl = builder.Configuration["BaseUrl"];
+    client.BaseAddress = new Uri(baseUrl);
+});
 builder.Services.AddTransient(typeof(ApiClientService<>), typeof(ApiClientService<>));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

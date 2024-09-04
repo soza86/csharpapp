@@ -2,26 +2,20 @@ namespace CSharpApp.Application.Services;
 
 public class TodoService : ITodoService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ApiClientService<TodoRecord> _toDoRecordClient;
 
-    public TodoService(IHttpClientFactory httpClientFactory)
+    public TodoService(ApiClientService<TodoRecord> toDoRecordClient)
     {
-        _httpClientFactory = httpClientFactory;
+        _toDoRecordClient = toDoRecordClient;
     }
 
     public async Task<TodoRecord?> GetTodoById(int id)
     {
-        var httpClient = _httpClientFactory.CreateClient("client");
-        var response = await httpClient.GetFromJsonAsync<TodoRecord>($"todos/{id}");
-
-        return response;
+        return await _toDoRecordClient.GetByIdAsync($"todos", id);
     }
 
     public async Task<ReadOnlyCollection<TodoRecord>> GetAllTodos()
     {
-        var httpClient = _httpClientFactory.CreateClient("client");
-        var response = await httpClient.GetFromJsonAsync<List<TodoRecord>>($"todos");
-
-        return response!.AsReadOnly();
+        return await _toDoRecordClient.GetAllAsync($"todos");
     }
 }

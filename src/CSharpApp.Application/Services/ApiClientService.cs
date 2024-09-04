@@ -34,7 +34,7 @@
             return result;
         }
 
-        public async Task<T?> DeleteAsync(string url, T id)
+        public async Task<T?> DeleteAsync(string url, int id)
         {
             return await _httpClient.DeleteFromJsonAsync<T>($"{url}/{id}");
         }
