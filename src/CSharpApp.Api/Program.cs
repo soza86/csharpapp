@@ -69,4 +69,20 @@ app.MapGet("/posts/{id}", async ([FromRoute] int id, IPostService postService) =
     .WithName("GetPostById")
     .WithOpenApi();
 
+app.MapPost("/posts", async ([FromBody] PostRecord post, IPostService postService) =>
+{
+    var result = await postService.AddPost(post);
+    return result;
+})
+    .WithName("AddPost")
+    .WithOpenApi();
+
+app.MapDelete("/posts/{id}", async ([FromRoute] int id, IPostService postService) =>
+{
+    var todo = await postService.DeletePost(id);
+    return todo;
+})
+    .WithName("DeletePost")
+    .WithOpenApi();
+
 app.Run();
