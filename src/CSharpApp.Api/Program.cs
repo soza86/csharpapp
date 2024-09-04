@@ -1,3 +1,6 @@
+using CSharpApp.Application.Services;
+using CSharpApp.Core.Dtos;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog(new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).CreateLogger());
@@ -7,12 +10,12 @@ builder.Configuration.AddEnvironmentVariables();
 // Add services to the container.
 builder.Services.AddDefaultConfiguration();
 
-//Add named http client to the container
-builder.Services.AddHttpClient("client", client =>
+builder.Services.AddHttpClient<ApiClientService<TodoRecord>>(client =>
 {
     var baseUrl = builder.Configuration["BaseUrl"];
     client.BaseAddress = new Uri(baseUrl);
 });
+builder.Services.AddTransient(typeof(ApiClientService<>), typeof(ApiClientService<>));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
