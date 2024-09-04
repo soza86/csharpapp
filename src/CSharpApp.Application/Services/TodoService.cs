@@ -2,19 +2,10 @@ namespace CSharpApp.Application.Services;
 
 public class TodoService : ITodoService
 {
-    private readonly ILogger<TodoService> _logger;
-    private readonly HttpClient _client;
-    private readonly string? _baseUrl;
-
     private readonly IHttpClientFactory _httpClientFactory;
 
-    public TodoService(ILogger<TodoService> logger,
-        IConfiguration configuration,
-        IHttpClientFactory httpClientFactory)
+    public TodoService(IHttpClientFactory httpClientFactory)
     {
-        _logger = logger;
-        _client = new HttpClient();
-        _baseUrl = configuration["BaseUrl"];
         _httpClientFactory = httpClientFactory;
     }
 
